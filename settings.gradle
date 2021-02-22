@@ -1,0 +1,3 @@
+include ':pluginin'
+include ':app'
+rootProject.name = "TestVirtualApk"

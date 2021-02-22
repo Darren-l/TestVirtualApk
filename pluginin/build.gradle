@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "26.0.2"
+
+    defaultConfig {
+        applicationId "com.dar.pluginin"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+    }
+
+    signingConfigs {
+        ott {
+            storeFile file('D:\\AndroidStudioProject\\OttLaunhcer\\keystore\\key\\ottLauncherKs.jks')
+            storePassword 'ottlauncher'
+            keyAlias = 'ott'
+            keyPassword 'ottlauncher'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.ott
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+apply plugin: 'com.didi.virtualapk.plugin'
+virtualApk {
+    packageId = 0x05 // the package id of Resources.
+//    targetHost = '../../VirtualAPK/app' // the path of application module in host project.
+    targetHost = 'D:\\AndroidTestPro\\Plugin\\TestVirtualApk\\app'
+    applyHostMapping = true //optional, default value: true.
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'com.android.support:appcompat-v7:23.4.0'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+}
+
+
+
